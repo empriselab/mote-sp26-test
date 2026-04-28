@@ -1,0 +1,4 @@
+<launch>
+  <node name="forward_kinematics" pkg="hw2_pkg" type="forward_kinematics.py" />
+  <test test-name="odom_tests" pkg="hw2_pkg" type="odom_tests.py" />
+</launch>

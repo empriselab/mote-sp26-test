@@ -1,0 +1,3 @@
+[submodule "src/mote-ros-noetic"]
+	path = src/mote-ros-noetic
+	url = https://github.com/empriselab/mote-ros-noetic.git
