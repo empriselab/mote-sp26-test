@@ -39,7 +39,7 @@ class pure_pursuit_node:
             "/pure_pursuit_path_viz", Marker, queue_size=1
         )
         self.cmd_vel_publisher = rospy.Publisher(
-            "/lrr_velocity_controller/cmd_vel", Twist, queue_size=1
+            "/diff_drive_controller/cmd_vel", Twist, queue_size=1
         )
 
         # wait for publisher to init

@@ -1,6 +1,6 @@
 <launch>
     <!-- LRR Driver -->
-    <include file="$(find lrr_base)/launch/base.launch">
+    <include file="$(find mote_base)/launch/mote.launch">
         <!-- QUESTION 0.1 BEGINS-->
         <arg name="gyro_bias_x" value="0.015"/>
         <arg name="gyro_bias_y" value="0.010"/>
@@ -13,7 +13,7 @@
     <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen"/>
 
     <!-- Foxglove visualization -->
-    <include file="$(find lrr_viz)/launch/viz.launch" />
+    <include file="$(find mote_viz)/launch/viz.launch" />
 
     <!-- Your particle filter node -->
     <node pkg="hw3_pkg" type="pf_node.py" name="particle_filter" output="screen"></node>
