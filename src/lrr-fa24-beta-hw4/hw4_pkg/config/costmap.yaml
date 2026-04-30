@@ -1,0 +1,5 @@
+plugins: 
+    - {name: static_map,       type: "costmap_2d::StaticLayer"}
+    - {name: inflation,       type: "costmap_2d::InflationLayer"}
+publish_frequency: 1.0
+footprint: [[-0.0025, -0.0325], [-0.0025, 0.0325], [0.0625, 0.0325], [0.066, 0.0], [0.0625, -0.0325]]

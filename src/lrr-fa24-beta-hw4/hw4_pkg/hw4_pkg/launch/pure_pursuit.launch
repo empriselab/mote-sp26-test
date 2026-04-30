@@ -1,0 +1,26 @@
+<launch>
+    <!-- LRR Driver -->
+    <include file="$(find lrr_base)/launch/base.launch">
+        <arg name="gyro_bias_x" value="0.015"/>
+        <arg name="gyro_bias_y" value="0.010"/>
+        <arg name="gyro_bias_z" value="0.050"/>
+    </include>
+
+    <!-- Provide the map using Map Server -->
+    <arg name="map_file" default="$(find hw4_pkg)/maps/cardboard_kingdom.yaml"/>
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen"/>
+
+    <!-- Foxglove visualization -->
+    <include file="$(find lrr_viz)/launch/viz.launch" />
+
+    <!-- AMCL Localization -->
+    <include file="$(find lrr_navigation)/launch/amcl.launch" />
+
+    <!-- Costmap generation -->
+    <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" output="screen">
+        <rosparam file="$(find hw4_pkg)/config/costmap.yaml" command="load" ns="/costmap_node/costmap" />
+    </node>
+
+    <!-- Your particle filter node -->
+    <node pkg="hw4_pkg" type="pure_pursuit_node.py" name="pure_pursuit" output="screen"></node>
+</launch>

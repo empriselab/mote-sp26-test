@@ -106,16 +106,6 @@
         }
       },
       "topics": {
-        "/lrr_lidar_scan": {
-          "visible": true,
-          "colorField": "range",
-          "colorMode": "colormap",
-          "colorMap": "rainbow",
-          "decayTime": 0.45,
-          "minValue": 0,
-          "maxValue": 5,
-          "pointSize": 3
-        },
         "/camera_info": {
           "visible": false
         },
@@ -452,7 +442,7 @@
       "publishRate": 10,
       "maxLinearSpeed": 1,
       "maxAngularSpeed": 3,
-      "topic": "/cmd_vel",
+      "topic": "/diff_drive_controller/cmd_vel",
       "messageSchema": "geometry_msgs/Twist"
     },
     "Gauge!1ofbjkt": {

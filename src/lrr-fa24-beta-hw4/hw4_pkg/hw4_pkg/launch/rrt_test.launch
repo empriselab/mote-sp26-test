@@ -1,0 +1,11 @@
+<launch>
+    <!-- Provide the map using Map Server -->
+    <arg name="map_file" default="$(find hw4_pkg)/maps/rrt_test_map.yaml"/>
+    <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen"/>
+
+    <!-- Foxglove visualization -->
+    <include file="$(find lrr_viz)/launch/viz.launch" />
+
+    <!-- Your particle filter node -->
+    <node pkg="hw4_pkg" type="rrt_node.py" name="rrt" output="screen"></node>
+</launch>
