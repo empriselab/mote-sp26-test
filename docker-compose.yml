@@ -1,0 +1,20 @@
+services:
+  mote:
+    build:
+      context: .           # repo root, so both mote-core/ and mote-ros-noetic/ are accessible
+      dockerfile: Dockerfile
+    image: mote-sp26-test
+    ports:
+      - "8765:8765"   # Foxglove Bridge WebSocket (connect Foxglove Studio to ws://<host>:8765)
+      - "11311:11311" # ROS Master URI (allows host-side ros CLI tools to connect)
+    environment:
+      # Required
+      ROBOT_IP: ${ROBOT_IP}
+      # Flush Python (roslaunch/spawner) stdout immediately so docker logs shows output
+      PYTHONUNBUFFERED: "1"
+      # Optional overrides (leave unset to use defaults from controllers.yaml / launch file)
+      # WHEEL_SEPARATION: "0.15"
+      # WHEEL_RADIUS: "0.033"
+      # LASER_FRAME: "laser"
+      # IMU_FRAME: "imu_link"
+    restart: unless-stopped
