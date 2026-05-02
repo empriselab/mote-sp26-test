@@ -34,4 +34,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends dos2unix \
     && rm -rf /var/lib/apt/lists/*
 RUN chmod +x /docker-entrypoint.sh
 
+# Automatically source ROS for every new bash session
+RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
+RUN echo "source /catkin_ws/devel/setup.bash" >> /root/.bashrc
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
