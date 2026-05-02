@@ -83,6 +83,12 @@ Although more advanced filtering techniques exist, we'll calibrate our gyroscope
 
 Within hw3_pkg, open `launch/particle_filter.launch`. You should see three parameters: `gyro_bias_{x, y, z}`.
 
+Before running the next package, we need to install a couple Python packages. To do this, run
+
+```
+$(rospack find hw3_pkg)/scripts/setup_env.sh
+```
+
 Sit your rover on a flat surface and don't touch it. Run 
 
 ```
@@ -250,7 +256,7 @@ Let's run the launch file and see what happens:
 With all other nodes stopped, run
 
 ```
-roslaunch lrr_demos amcl_localization.launch gyro_bias_x:=<insert your value here> gyro_bias_y:=<...> gyro_bias_z:=<...> map_file:=$(rospack find hw3_pkg)/maps/cardboard_kingdom.yaml
+roslaunch mote_demos amcl_localization.launch map_file:=$(rospack find hw3_pkg)/maps/cardboard_hell.yaml
 ```
 
 Return to Foxglove. Like with your particle filter, AMCL probably failed to localize without an initial prediction of the robot's location. Provided it using the "Publish pose estimate" button.
@@ -258,7 +264,7 @@ Return to Foxglove. Like with your particle filter, AMCL probably failed to loca
 > [!WARNING]
 > Again, make sure your display frame is set to map before you set your pose estimate. Otherwise, the pose will be published in the wrong coordinate frame, and AMCL will ignore it."
 
-Once the localization converges, drive your rover around the arena. Watch the robots position w.r.t the map.
+Once the localizatioroslaunch hw4_pkg pure_pursuit.launchn converges, drive your rover around the arena. Watch the robots position w.r.t the map.
 
 How does the performance of AMCL compare with your particle filter?
 

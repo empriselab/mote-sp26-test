@@ -3,7 +3,7 @@ NAME = "odom_tests"
 
 import sys, unittest, time
 
-from gradescope_utils.autograder_utils.decorators import weight
+# from gradescope_utils.autograder_utils.decorators import weight
 
 import tf
 
@@ -116,7 +116,7 @@ class TestOdom(unittest.TestCase):
         )
         pass
 
-    @weight(5)
+    #@weight(5)
     def test_no_motion(self):
         twist = TwistStamped()
         twist.header = Header(stamp=rospy.Time(0), frame_id="base_link")
@@ -132,7 +132,7 @@ class TestOdom(unittest.TestCase):
 
         self.check_odom_msg(odom, twist.twist, 0.0, 0.0, 0.0)  # x, y, theta
 
-    @weight(5)
+    #@weight(5)
     def test_straight(self):
         twist = TwistStamped()
         twist.header = Header(stamp=rospy.Time(0), frame_id="base_link")
@@ -148,7 +148,7 @@ class TestOdom(unittest.TestCase):
 
         self.check_odom_msg(odom, twist.twist, 1.0, 0.0, 0.0)  # x, y, theta
 
-    @weight(5)
+    #@weight(5)
     def test_turn_on_spot(self):
         twist = TwistStamped()
         twist.header = Header(stamp=rospy.Time(0), frame_id="base_link")
@@ -164,7 +164,7 @@ class TestOdom(unittest.TestCase):
 
         self.check_odom_msg(odom, twist.twist, 0.0, 0.0, 0.5)  # x, y, theta
 
-    @weight(5)
+    #@weight(5)
     def test_left_turn(self):
         twist = TwistStamped()
         twist.header = Header(stamp=rospy.Time(0), frame_id="base_link")
@@ -186,7 +186,7 @@ class TestOdom(unittest.TestCase):
             2.0,
         )  # x, y, theta
 
-    @weight(5)
+    #@weight(5)
     def test_transform(self):
         twist = TwistStamped()
         twist.header = Header(stamp=rospy.Time(0), frame_id="base_link")

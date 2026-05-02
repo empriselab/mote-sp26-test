@@ -8,7 +8,7 @@ import math
 
 from collections import Counter
 
-from gradescope_utils.autograder_utils.decorators import weight
+# from gradescope_utils.autograder_utils.decorators import weight
 
 import rospy, rostest
 
@@ -36,7 +36,7 @@ class TestPF(unittest.TestCase):
     def __init__(self, *args):
         super(TestPF, self).__init__(*args)
 
-    @weight(5.0)
+    #@weight(5.0)
     def test_sensor_model_single_val(self):
         prob = self.pf.sensor_model(np.array([1.0]), np.array([1.0]), 0.1)
         self.assertAlmostEqual(
@@ -48,7 +48,7 @@ class TestPF(unittest.TestCase):
             prob, 0.04431848411938, msg="Incorrect unweighted probability"
         )
 
-    @weight(5.0)
+    #@weight(5.0)
     def test_sensor_model_ignores_nan(self):
         prob = self.pf.sensor_model(
             np.array([1.0, math.nan]), np.array([1.0, 2.0]), 0.1
@@ -64,7 +64,7 @@ class TestPF(unittest.TestCase):
             prob, 3.989422804014327, msg="Does not ignore NaN values in ground_truth"
         )
 
-    @weight(10.0)
+    #@weight(10.0)
     def test_sensor_model_many(self):
         prob = self.pf.sensor_model(
             np.array([1.0, 1.1, 1.2, 1.3]), np.array([1.0, 0.9, 0.8, 0.7]), 0.1
@@ -73,7 +73,7 @@ class TestPF(unittest.TestCase):
             prob, 1.751438007529713e-10, msg="Does not ignore NaN values in measurement"
         )
 
-    @weight(10.0)
+    #@weight(10.0)
     def test_resampler_inplace(self):
         n_particles = 100  # number of particles
 
@@ -102,7 +102,7 @@ class TestPF(unittest.TestCase):
             msg="Resampler should modify weights in-place",
         )
 
-    @weight(10.0)
+    #@weight(10.0)
     def test_resampler_is_fair(self):
         n_particles = 100  # number of particles
         k_val = 50  # number of particles that have non-zero weight
@@ -146,7 +146,7 @@ class TestPF(unittest.TestCase):
                 msg="Particles with less weight should be sampled less than those with more weight",
             )
 
-    @weight(10.0)
+    #@weight(10.0)
     def test_resampler_is_complete(self):
         n_particles = 100  # number of particles
         trials = 100
@@ -172,7 +172,7 @@ class TestPF(unittest.TestCase):
                 msg="All particles should have been sampled at least once",
             )
 
-    @weight(10.0)
+    #@weight(10.0)
     def test_resampler_resets_weights(self):
         n_particles = 100  # number of particles
 

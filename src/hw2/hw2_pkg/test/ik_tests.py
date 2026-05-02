@@ -3,7 +3,7 @@ NAME = "ik_tests"
 
 import sys, unittest, time
 
-from gradescope_utils.autograder_utils.decorators import weight
+# from gradescope_utils.autograder_utils.decorators import weight
 
 import rospy, rostest
 from sensor_msgs.msg import JointState
@@ -19,7 +19,7 @@ class TestIK(unittest.TestCase):
         cls.ik = inv_kin()
 
         # create a publisher to send fake data
-        cls.twist_publisher = rospy.Publisher("cmd_vel", Twist, queue_size=10)
+        cls.twist_publisher = rospy.Publisher("diff_drive_controller/cmd_vel", Twist, queue_size=10)
 
         rospy.sleep(0.5)  # wait for publishers to init
 
@@ -59,7 +59,7 @@ class TestIK(unittest.TestCase):
 
         return data
 
-    @weight(2.5)
+    # @weight(2.5)
     def test_no_motion(self):
         twist = Twist()
         twist.angular.z = 0
@@ -76,7 +76,7 @@ class TestIK(unittest.TestCase):
             joint_state.velocity[1], 0.0, msg="Right wheel velocity incorrect"
         )
 
-    @weight(2.5)
+    # @weight(2.5)
     def test_angular_only(self):
         twist = Twist()
         twist.angular.z = 1.0
@@ -97,7 +97,7 @@ class TestIK(unittest.TestCase):
             msg="Right wheel velocity incorrect",
         )
 
-    @weight(2.5)
+    # @weight(2.5)
     def test_linear_only(self):
         twist = Twist()
         twist.angular.z = 0.0
@@ -118,7 +118,7 @@ class TestIK(unittest.TestCase):
             msg="Right wheel velocity incorrect",
         )
 
-    @weight(2.5)
+    # @weight(2.5)
     def test_linear_and_angular(self):
         twist = Twist()
         twist.angular.z = 3.0

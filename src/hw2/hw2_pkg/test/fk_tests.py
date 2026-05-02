@@ -3,7 +3,7 @@ NAME = "fk_tests"
 
 import sys, unittest, time
 
-from gradescope_utils.autograder_utils.decorators import weight
+# from gradescope_utils.autograder_utils.decorators import weight
 
 import rospy, rostest
 
@@ -33,7 +33,7 @@ class TestFK(unittest.TestCase):
 
         self.cmd_vel_recieved = None
         self.joint_states = JointState()
-        self.joint_states.name = ["wheel_left", "wheel_right"]
+        self.joint_states.name = ["left_wheel", "right_wheel"]
         self.joint_states.header = Header(stamp=rospy.Time(0), frame_id="base_link")
 
     def __init__(self, *args):
@@ -64,7 +64,7 @@ class TestFK(unittest.TestCase):
 
         return data
 
-    @weight(2.5)
+    #@weight(2.5)
     def test_no_motion(self):
         self.joint_states.velocity = [0.0, 0.0]
 
@@ -79,7 +79,7 @@ class TestFK(unittest.TestCase):
             cmd_vel.twist.angular.z, 0.0, msg="Twist linear velocity is incorrect"
         )
 
-    @weight(2.5)
+    #@weight(2.5)
     def test_straight(self):
         self.joint_states.velocity = [20.0, -20.0]
 
@@ -94,7 +94,7 @@ class TestFK(unittest.TestCase):
             cmd_vel.twist.angular.z, 0.0, msg="Twist linear velocity is incorrect"
         )
 
-    @weight(2.5)
+    #@weight(2.5)
     def test_turn_on_spot(self):
         self.joint_states.velocity = [-10.0, -10.0]
 
@@ -111,7 +111,7 @@ class TestFK(unittest.TestCase):
             msg="Twist linear velocity is incorrect",
         )
 
-    @weight(2.5)
+    #@weight(2.5)
     def test_gentle_turn(self):
         self.joint_states.velocity = [20.0, -10.0]
 

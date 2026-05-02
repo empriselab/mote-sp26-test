@@ -27,8 +27,8 @@ class forward_kin:
     def joint_state_callback(self, msg: JointState):
         # get the velocity associated with each wheel
         try:
-            v_left = msg.velocity[msg.name.index("wheel_left")]
-            v_right = msg.velocity[msg.name.index("wheel_right")]
+            v_left = msg.velocity[msg.name.index("left_wheel")]
+            v_right = msg.velocity[msg.name.index("right_wheel")]
         except Exception as e:
             print(e)
 
@@ -43,8 +43,11 @@ class forward_kin:
         # your equations may be expecting m/s, you'll need to do that conversion
 
         # calculate linear and angular velocity, then ...
-        linear_velocity = (v_left - v_right) * (WHEEL_DIAMETER/2) / 2
-        angular_velocity = -1 * (v_right + v_left) * (WHEEL_DIAMETER/2) / WHEEL_SEPARATION
+        # linear_velocity = (v_left - v_right) * (WHEEL_DIAMETER/2) / 2
+        linear_velocity = (v_left + v_right) * (WHEEL_DIAMETER/2) / 2
+        # angular_velocity = -1 * (v_right + v_left) * (WHEEL_DIAMETER/2) / WHEEL_SEPARATION
+        angular_velocity = (-v_right + v_left) * (WHEEL_DIAMETER/2) / WHEEL_SEPARATION
+
         # ... create a TwistStamped message, then ...
         twist = TwistStamped()
         # ... update the message values, then ...

@@ -6,7 +6,7 @@ import unittest
 from hw4_pkg.planning import search
 from hw4_pkg.planning.problems import R2Problem
 
-from gradescope_utils.autograder_utils.decorators import weight
+# from gradescope_utils.autograder_utils.decorators import weight
 
 
 class TestRRT(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestRRT(unittest.TestCase):
         self.permissible_region = np.loadtxt(fname, dtype=bool)
         self.problem = R2Problem(self.permissible_region, check_resolution=0.5)
 
-    @weight(20)
+    #@weight(20)
     def test_rrt_r2problem(self):
         np.random.seed(111)
         rrt = search.RRTPlanner(self.problem, self.permissible_region)

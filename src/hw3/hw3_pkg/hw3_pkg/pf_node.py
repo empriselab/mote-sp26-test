@@ -185,7 +185,7 @@ class pf_node:
             )
         )
 
-        (trans, rot) = self.tf_listener.lookupTransform("odom", "lidar", rospy.Time(0))
+        (trans, rot) = self.tf_listener.lookupTransform("odom", "laser", rospy.Time(0))
         trans[2] = 0.0
         odom_to_mean_tranform = tf.transformations.concatenate_matrices(
             tf.transformations.translation_matrix(trans),
@@ -207,7 +207,7 @@ class pf_node:
     def publish_gt_scan(self, mean):
         # Publish the scan the model expects to be getting from its prediction
         fake_scan = LaserScan()
-        fake_scan.header.frame_id = "lidar"
+        fake_scan.header.frame_id = "laser"
         fake_scan.header.stamp = rospy.Time.now()
         fake_scan.angle_min = -3.14
         fake_scan.angle_max = 3.14

@@ -58,6 +58,12 @@ I've provided a launch file `launch/rrt_test.launch` for running your RRT agains
 
 3. Starts your node
 
+Before running the next package, we need to install a couple Python packages. To do this, run
+
+```
+$(rospack find hw4_pkg)/scripts/setup_env.sh
+```
+
 Run it using
 
 ```

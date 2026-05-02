@@ -14,7 +14,7 @@ services:
       PYTHONUNBUFFERED: "1"
       # Optional overrides (leave unset to use defaults from controllers.yaml / launch file)
       WHEEL_SEPARATION: "0.142"
-      WHEEL_RADIUS: "0.0675"
+      WHEEL_RADIUS: "0.03375"
       # LASER_FRAME: "laser"
       # IMU_FRAME: "imu_link"
     restart: unless-stopped

@@ -1,13 +1,14 @@
 <launch>
     <!-- LRR Driver -->
-    <include file="$(find mote_base)/launch/mote.launch">
+    <!-- Mote base should already be running -->
+    <!-- <include file="$(find mote_base)/launch/mote.launch">
         <arg name="gyro_bias_x" value="0.015"/>
         <arg name="gyro_bias_y" value="0.010"/>
         <arg name="gyro_bias_z" value="0.050"/>
-    </include>
+    </include> -->
 
     <!-- Provide the map using Map Server -->
-    <arg name="map_file" default="$(find hw4_pkg)/maps/cardboard_kingdom.yaml"/>
+    <arg name="map_file" default="$(find hw4_pkg)/maps/heck.yaml"/>
     <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen"/>
 
     <!-- Foxglove visualization -->

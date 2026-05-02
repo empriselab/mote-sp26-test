@@ -99,6 +99,8 @@ class pure_pursuit_node:
             lin, ang = self.pure_pursuit.get_control()
             self.plan_mutex.release()
 
+            rospy.loginfo(f"Radius: {rad}, Linear Velocity: {lin}, Angular Velocity: {ang}")
+
             self.pp_visualizer.show_path(rad)
 
             cmd = Twist(Vector3(lin, 0.0, 0.0), Vector3(0.0, 0.0, ang))

@@ -23,10 +23,18 @@ RUN apt-get update && \
 WORKDIR /catkin_ws
 COPY src/ ./src/
 
+# Copy .env file for robot_ip
+COPY .env ./
+
+
 WORKDIR /catkin_ws
 RUN /bin/bash -c "\
     source /opt/ros/noetic/setup.bash && \
     catkin_make"
+
+# for installing matplotlib and numpy and scipy in hw3 and hw4
+RUN apt-get update && apt-get install -y \
+    python3-pip 
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN apt-get update && apt-get install -y --no-install-recommends dos2unix \

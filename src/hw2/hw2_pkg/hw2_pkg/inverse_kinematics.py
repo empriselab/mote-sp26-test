@@ -15,7 +15,7 @@ class inv_kin:
     def __init__(self):
         # subscribe to Twist messages on the /cmd_vel topic, and register twist_callback as the callback
         self.twist_subscription = rospy.Subscriber(
-            "cmd_vel", Twist, self.twist_callback
+            "/diff_drive_controller/cmd_vel", Twist, self.twist_callback
         )
 
         # initialize our joint states
@@ -23,7 +23,7 @@ class inv_kin:
         # read: https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/JointState.html
         self.joint_states = JointState()
         self.joint_states.header = Header(stamp=rospy.Time.now(), frame_id="base_link")
-        self.joint_states.name = ["wheel_left", "wheel_right"]
+        self.joint_states.name = ["left_wheel", "right_wheel"]
         self.joint_states.velocity = [0.0, 0.0]  # rad / s
 
         self.joint_states.position = []  # you'll leave this one empty
@@ -46,7 +46,9 @@ class inv_kin:
         """
         # calculate v_left and v_right (in rad/s, not m/s!), then ...
         v_left  = (linear_velocity - angular_velocity * WHEEL_SEPARATION / 2)/(WHEEL_DIAMETER/2)
-        v_right = -1*(linear_velocity + angular_velocity * WHEEL_SEPARATION / 2)/(WHEEL_DIAMETER/2)
+        # v_right = -1*(linear_velocity + angular_velocity * WHEEL_SEPARATION / 2)/(WHEEL_DIAMETER/2)
+        v_right = (linear_velocity + angular_velocity * WHEEL_SEPARATION / 2)/(WHEEL_DIAMETER/2)
+
 
         # ... update self.joint_states.velocity, then ...
         self.joint_states.velocity = [v_left, v_right]
