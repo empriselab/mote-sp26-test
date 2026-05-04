@@ -51,10 +51,9 @@ class pure_pursuit:
         # QUESTION 2.1 BEGINS
         # ignore divide by zero here, it'll get caught in get_control
 
-        xH = lookahead_point[0]
-        yH = lookahead_point[1] 
-        radius = (xH ** 2 + yH ** 2) / (2 * yH)
-
+        radius = (lookahead_point[0] ** 2 + lookahead_point[1] ** 2) / (
+            2 * lookahead_point[1]
+        )
 
         # QUESTION 2.1 ENDS
 

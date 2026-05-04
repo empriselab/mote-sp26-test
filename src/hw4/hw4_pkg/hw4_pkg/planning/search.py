@@ -79,15 +79,16 @@ class RRTPlanner(object):
                 - If distance to goal (calculated using self.prob.compute_distance_rrt) is less than epsilon threshold, 
                   stop iterations and set goal_id
                 """
-                id_near, x_near = self.tree.GetNearestVertex(x_rand)
-
+                sid, x_near = self.tree.GetNearestVertex(x_rand)
                 x_new = self.extend(x_near, x_rand)
                 if x_new is not None:
-                    id_new = self.tree.AddVertex(x_new)
-                    self.tree.AddEdge(id_near, id_new)
-                    new_eid.append(id_new) 
+                    # Add to tree
+                    eid = self.tree.AddVertex(x_new)
+                    new_eid.append(eid)
+                    self.tree.AddEdge(sid, eid)
+
                     if self.prob.compute_distance_rrt(x_new, self.end) < epsilon:
-                        goal_id = id_new
+                        goal_id = eid
                         found = True
                         break
                 ### END QUESTION 1.1 #######################
@@ -189,10 +190,9 @@ class RRTPlanner(object):
         - Finally, how would you express the desired point x_new in terms of x_near and the (properly-scaled) vector v?
         """
         ### BEGIN QUESTION 1.1 #####################
-        v = x_rand - x_near
-        x_new = x_near + self.eta * v
-        if self.prob.check_edge_validity(x_near, x_new):
-            return x_new
+        x_goal = x_near + self.eta * (x_rand - x_near)
+        if self.prob.check_edge_validity(x_near, x_goal):
+            return x_goal
         ### END QUESTION 1.1 #######################
         self.collision += 1
         return None
@@ -213,7 +213,19 @@ class RRTPlanner(object):
               The function will return True if collision free.
         """
         ### BEGIN QUESTION 2.2 (Grad Students Only) ####
-        pass
+        i = 0
+        num = path.shape[0]
+        while True:
+            if i + 2 >= path.shape[0]:
+                i = 0
+                if path.shape[0] == num:
+                    break
+                else:
+                    num = path.shape[0]
+            if self.prob.check_edge_validity(path[i], path[i + 2]):
+                path = np.delete(path, i + 1, 0)
+            i += 1
+        return path
         ### END QUESTION 2.2 ###########################
 
     def visualize_plan(self, plan, tree=None, visited=None):
