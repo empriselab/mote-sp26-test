@@ -21,5 +21,6 @@ If you want to work off of the current branch instead of the latest release, you
 4. Go into your terminal and cd into to your local copy of this repo
 5. change the .env file in this repo's folder to your IP
 6. Build the docker container via `docker build .` then `docker compose up` or navigate to this folder in vs code and hit `ctrl+shift+p` then search and select "Rebuild and Reopen in container"
-7. Upon connecting to your docker container, the package `mote_base` will be launched (as per https://github.com/empriselab/mote-sp26-test/blob/main/docker-entrypoint.sh), allowing you to immediately drive the robot around using Foxglove (more info in HW2 [https://github.com/empriselab/mote-sp26-test/tree/main/src/hw2])
-8. Now you should be able to follow along with the HWs in the src folder.
+7. Sometimes Building the docker container fails because it can't connect to Ubuntu's servers on RedRover. If this happens, try switching to eduroam and try again.
+8. Upon connecting to your docker container, the package `mote_base` will be launched (as per https://github.com/empriselab/mote-sp26-test/blob/main/docker-entrypoint.sh), allowing you to immediately drive the robot around using Foxglove (more info in HW2 [https://github.com/empriselab/mote-sp26-test/tree/main/src/hw2])
+9. Now you should be able to follow along with the HWs in the src folder.
