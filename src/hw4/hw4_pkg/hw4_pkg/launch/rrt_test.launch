@@ -1,7 +1,7 @@
 <launch>
     <!-- Provide the map using Map Server -->
     <!-- <arg name="map_file" default="$(find hw4_pkg)/maps/rrt_test_map.yaml"/> -->
-    <arg name="map_file" default="$(find hw4_pkg)/maps/heck.yaml"/>
+    <arg name="map_file" default="$(find hw4_pkg)/maps/cardboard_hell.yaml"/>
     <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" output="screen"/>
 
     <!-- Foxglove visualization -->
