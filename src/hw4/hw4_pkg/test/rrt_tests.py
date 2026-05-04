@@ -38,7 +38,7 @@ class TestRRT(unittest.TestCase):
             np.allclose(path[-1], goal),
             msg="Path must end at goal",
         )
-
+        
         self.assertTrue(
             np.allclose(path, correct_path),
             msg="RRT implementation is incorrect",

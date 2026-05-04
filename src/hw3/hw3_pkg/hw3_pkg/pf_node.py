@@ -158,7 +158,32 @@ class pf_node:
             )
 
             # print(f"Particle {idx} weight: {self.pf.weights[idx]}")
-            # if the particle is close to 
+            # if the particle is close to the initial pose, print out the ranges for debugging
+            if self.initial_pose is not None:
+                initial_particle = np.array(
+                    [
+                        self.initial_pose.pose.pose.position.x,
+                        self.initial_pose.pose.pose.position.y,
+                        tf.transformations.euler_from_quaternion(
+                            [
+                                self.initial_pose.pose.pose.orientation.x,
+                                self.initial_pose.pose.pose.orientation.y,
+                                self.initial_pose.pose.pose.orientation.z,
+                                self.initial_pose.pose.pose.orientation.w,
+                            ],
+                        )[2],
+                    ]
+                )
+                # if particle is close and facing the same direction as the initial pose, print out the ranges for debugging
+                # if np.linalg.norm(particle - initial_particle) < 0.1 and abs(particle[2] - initial_particle[2]) < 0.1:
+                #     print(f"Particle {idx} is close to the initial pose.")
+                #     print(f"Particle: {particle}")
+                #     print(f"Initial pose: {initial_particle}")
+                #     print(f"Subsampled ranges: {subsampled_ranges}")
+                #     print(f"Map ranges: {map_ranges}")
+                #     initial_particle_scan = gen_lidar_scan(initial_particle, self.map, self.lidar_subsample_count)
+                #     print(f"Initial particle scan: {initial_particle_scan}")
+                #     print(f"Sensor model output: {self.pf.sensor_model(subsampled_ranges, np.array(map_ranges), self.lidar_std)}")
             # print(subsampled_ranges)
             # print(map_ranges)
 

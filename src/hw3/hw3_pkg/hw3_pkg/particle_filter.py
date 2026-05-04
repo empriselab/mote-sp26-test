@@ -48,10 +48,15 @@ class particle_filter:
         """
 
         if np.all(np.isnan(measurement)) or np.all(np.isnan(ground_truth)):
+            print("All measurements are NaN, returning 0 probability")
             return 0.0
 
         # QUESTION 1.1 BEGINS
-        valid_idx = np.argwhere(~np.isnan(measurement) & ~np.isnan(ground_truth))
+        valid_idx = np.argwhere(~np.isnan(measurement) & ~np.isnan(ground_truth) & ~np.isinf(measurement) & ~np.isinf(ground_truth))
+        # print("Valid measurements:")
+        # print(measurement[valid_idx])
+        # print("Valid ground truth:")
+        # print(ground_truth[valid_idx])
         return np.product(
             stats.norm.pdf(measurement[valid_idx], ground_truth[valid_idx], std_dev)
         )

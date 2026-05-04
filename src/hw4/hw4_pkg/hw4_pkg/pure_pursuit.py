@@ -19,7 +19,7 @@ class pure_pursuit:
         self.lookahead = 0.1
 
         self.linear_vel = 0.25
-        self.turn_around_speed = 1.5
+        self.turn_around_speed = 1
 
     def get_lookahead(self, closest_idx):
         # Find points that are self.lookahead away from the robot, then return the point furthest along the path
