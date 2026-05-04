@@ -30,7 +30,7 @@ class particle_filter:
         """
         INPUTS
          * measurement and ground_truth
-               Evenly spaced LiDAR readings, stored as a numpy array.
+               360 LiDAR readings, stored as a numpy array.
                Invalid readings are set to NaN.
          * std_dev: the standard deviation of the error in each reading
 
@@ -51,15 +51,10 @@ class particle_filter:
             return 0.0
 
         # QUESTION 1.1 BEGINS
-
-        # p(z|x) = p(x|z)p(z)/p(x)
-        prob = 1
-        for meas, grt in zip(measurement, ground_truth):
-            if np.isnan(meas) or np.isnan(grt):
-                continue
-            prob *= stats.norm.pdf(meas, loc=grt, scale=std_dev)
-        return prob
-
+        valid_idx = np.argwhere(~np.isnan(measurement) & ~np.isnan(ground_truth))
+        return np.product(
+            stats.norm.pdf(measurement[valid_idx], ground_truth[valid_idx], std_dev)
+        )
         # QUESTION 1.1 ENDS
 
     def resample(self):
@@ -70,23 +65,28 @@ class particle_filter:
         Aim for an efficient O(M) implementation!
         """
 
-        # QUESTION 1.2 BEGINS
-            # BEGIN SOLUTION "QUESTION 1.3"
-        temp_particles = []
-        r = self.rng.uniform(0, 1/self.n_particles)
-        c = self.weights[0]
-        i = 0
-        for m in range(1, self.n_particles+1):
-            U = r + (m-1) * 1/self.n_particles
-            while U > c:
-                i += 1
-                c += self.weights[i]
-            temp_particles.append(i)
-        self.particles[:] =  self.particles[temp_particles]
-        self.weights[:] = 1/self.n_particles
-            # END SOLUTION
+        # QUESTION 2.1 BEGINS
 
-        # QUESTION 1.2 ENDS
+        # Sample solution taken from FOR HW 3.2 solutions
+        self.step_array = np.arange(self.n_particles, dtype=np.float32)
+        self.step_array /= self.n_particles
+        self.indices = np.zeros(self.n_particles, dtype=int)
+
+        # Choose an initial value from half open interval [0, 1/M)
+        initval = self.rng.uniform(0, self.n_particles**-1)
+
+        bin_parts = initval + self.step_array
+        cum_weights = np.cumsum(self.weights)
+
+        self.indices = np.searchsorted(cum_weights, bin_parts, side="left")
+
+        assert np.all(self.indices < self.n_particles)
+        self.particles[:] = self.particles[self.indices, :]
+
+        # Uniformly weight new particles
+        self.weights.fill(1.0 / self.n_particles)
+
+        # QUESTION 2.1 ENDS
         pass
 
     def predict(self, dt):

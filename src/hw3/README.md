@@ -256,13 +256,13 @@ Let's run the launch file and see what happens:
 With all other nodes stopped, run
 
 ```
-roslaunch mote_demos amcl_localization.launch map_file:=$(rospack find hw3_pkg)/maps/cardboard_hell.yaml
+roslaunch mote_demos amcl_localization.launch map_file:=$(rospack find hw3_pkg)/maps/pleasepleasepleasepleaseplease.yaml
 ```
 
 Return to Foxglove. Like with your particle filter, AMCL probably failed to localize without an initial prediction of the robot's location. Provided it using the "Publish pose estimate" button.
 
 > [!WARNING]
-> Again, make sure your display frame is set to map before you set your pose estimate. Otherwise, the pose will be published in the wrong coordinate frame, and AMCL will ignore it."
+> Again, make sure your display frame is set to map and fixed frame is set to Root Frame before you set your pose estimate. Otherwise, the pose will be published in the wrong coordinate frame, and AMCL will ignore it."
 
 Once the localizatioroslaunch hw4_pkg pure_pursuit.launchn converges, drive your rover around the arena. Watch the robots position w.r.t the map.
 

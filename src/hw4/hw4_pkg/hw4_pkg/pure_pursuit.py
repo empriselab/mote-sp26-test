@@ -18,7 +18,7 @@ class pure_pursuit:
 
         self.lookahead = 0.1
 
-        self.linear_vel = 0.02
+        self.linear_vel = 0.25
         self.turn_around_speed = 1.5
 
     def get_lookahead(self, closest_idx):
