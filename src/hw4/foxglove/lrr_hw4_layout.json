@@ -375,7 +375,7 @@
     },
     "virtual-joystick.Virtual Joystick!2c4ulv0": {
       "publishRate": 10,
-      "maxLinearSpeed": 0.5,
+      "maxLinearSpeed": 0.25,
       "maxAngularSpeed": 1,
       "topic": "/diff_drive_controller/cmd_vel",
       "messageSchema": "geometry_msgs/Twist"

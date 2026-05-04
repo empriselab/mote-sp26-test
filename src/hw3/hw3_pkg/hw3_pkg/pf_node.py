@@ -74,6 +74,8 @@ class pf_node:
         self.mutex = threading.Lock()
         self.scan = None
 
+        # DEBUGGGING
+
         # wait for publisher to init
         rospy.sleep(0.5)
 
@@ -140,7 +142,9 @@ class pf_node:
         ranges = np.array(self.scan.ranges)
         self.mutex.release()
 
-        subsampled_ranges = ranges[
+        shift_degrees = 90
+        shifted_ranges = np.array([ranges[(i + shift_degrees) % 360] for i in range(len(ranges))])
+        subsampled_ranges = shifted_ranges[
             np.linspace(0, 359, self.lidar_subsample_count, dtype=int)
         ]
 
@@ -153,10 +157,18 @@ class pf_node:
                 subsampled_ranges, np.array(map_ranges), self.lidar_std
             )
 
+            # print(f"Particle {idx} weight: {self.pf.weights[idx]}")
+            # if the particle is close to 
+            # print(subsampled_ranges)
+            # print(map_ranges)
+
         if np.all(self.pf.weights == 0.0):
             self.pf.weights = np.full(self.pf.weights.shape, 1.0)
 
         self.pf.weights /= np.sum(self.pf.weights)
+
+        # print(f"pose estimate pos:  {self.initial_pose}")
+        # print(f"Particles pos and weight: {list(zip(self.pf.particles, self.pf.weights))}")
 
     def publish_cloud(self):
         # Turn particles into a ROS PoseArray message that Foxglove can display

@@ -67,6 +67,16 @@ class RRTPlanner(object):
             else:
                 xs_rand = self.sample(self.end)
             new_eid = []
+
+            # if we can directly connect to the goal from the start, then we can directly return the plan without iterations
+            # goal_possible = self.extend(self.start, self.end)
+            # if goal_possible is not None:
+            #     goal_id = self.tree.AddVertex(self.end)
+            #     new_eid.append(goal_id)
+            #     self.tree.AddEdge(0, goal_id)
+            #     found = True
+            #     break
+
             for i in range(xs_rand.shape[0]):
                 x_rand = xs_rand[i].reshape((1, dim))
                 ### BEGIN QUESTION 1.1 #####################
@@ -91,6 +101,17 @@ class RRTPlanner(object):
                         goal_id = eid
                         found = True
                         break
+
+                    # if we can reach the goal from x_new, then we can directly connect to the goal and stop iterations
+                    # print(x_near, x_rand, x_new, self.end)
+                    # goal_possible = self.extend(x_new, self.end)
+                    # if goal_possible is not None:
+                    #     goal_id = self.tree.AddVertex(self.end)
+                    #     new_eid.append(goal_id)
+                    #     self.tree.AddEdge(eid, goal_id)
+                    #     found = True
+                    #     break
+
                 ### END QUESTION 1.1 #######################
 
             if isinstance(self.prob, problems.R2Problem) and self.show_tree:
